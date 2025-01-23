@@ -1,0 +1,1293 @@
+@prefix : <http://www.kr2022.com/snowman#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix 1.0.0: <http://www.kr2022.com/snowman/1.0.0#> .
+@base <http://www.kr2022.com/snowman> .
+
+<http://www.kr2022.com/snowman> rdf:type owl:Ontology ;
+                                 owl:versionIRI <http://www.kr2022.com/snowman/1.0.0> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.kr2022.com/snowman#hasEast
+:hasEast rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cell ;
+         rdfs:range :Cell .
+
+
+###  http://www.kr2022.com/snowman#hasNorth
+:hasNorth rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cell ;
+          rdfs:range :Cell .
+
+
+###  http://www.kr2022.com/snowman#hasSouth
+:hasSouth rdf:type owl:ObjectProperty ;
+          rdfs:domain :Cell ;
+          rdfs:range :Cell .
+
+
+###  http://www.kr2022.com/snowman#hasWest
+:hasWest rdf:type owl:ObjectProperty ;
+         rdfs:domain :Cell ;
+         rdfs:range :Cell .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.kr2022.com/snowman#x
+:x rdf:type owl:DatatypeProperty .
+
+
+###  http://www.kr2022.com/snowman#y
+:y rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.kr2022.com/snowman#Cell
+:Cell rdf:type owl:Class .
+
+
+###  http://www.kr2022.com/snowman#CellBall
+:CellBall rdf:type owl:Class ;
+          rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#CellEastPlayer
+:CellEastPlayer rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasWest ;
+                                      owl:someValuesFrom :CellPlayer
+                                    ] ;
+                rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#CellFree
+:CellFree rdf:type owl:Class ;
+          rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#CellNorthPlayer
+:CellNorthPlayer rdf:type owl:Class ;
+                 owl:equivalentClass [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasSouth ;
+                                       owl:someValuesFrom :CellPlayer
+                                     ] ;
+                 rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#CellPlayer
+:CellPlayer rdf:type owl:Class ;
+            rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#CellSouthPlayer
+:CellSouthPlayer rdf:type owl:Class ;
+                 owl:equivalentClass [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasNorth ;
+                                       owl:someValuesFrom :CellPlayer
+                                     ] ;
+                 rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#CellWestPlayer
+:CellWestPlayer rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasEast ;
+                                      owl:someValuesFrom :CellPlayer
+                                    ] ;
+                rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#MovableToNorth
+:MovableToNorth rdf:type owl:Class ;
+                rdfs:subClassOf :Cell .
+
+
+###  http://www.kr2022.com/snowman#Snowman
+:Snowman rdf:type owl:Class .
+
+
+###  http://www.kr2022.com/snowman#Wall
+:Wall rdf:type owl:Class .
+
+
+###  http://www.kr2022.com/snowman#bigSnowman
+:bigSnowman rdf:type owl:Class ;
+            rdfs:subClassOf :Snowman .
+
+
+###  http://www.kr2022.com/snowman#finalSnowman
+:finalSnowman rdf:type owl:Class ;
+              rdfs:subClassOf :Snowman .
+
+
+###  http://www.kr2022.com/snowman#littleAndMediumSnowman
+:littleAndMediumSnowman rdf:type owl:Class ;
+                        rdfs:subClassOf :Snowman .
+
+
+###  http://www.kr2022.com/snowman#littleSnowman
+:littleSnowman rdf:type owl:Class ;
+               rdfs:subClassOf :Snowman .
+
+
+###  http://www.kr2022.com/snowman#mediumAndBigSnowman
+:mediumAndBigSnowman rdf:type owl:Class ;
+                     rdfs:subClassOf :Snowman .
+
+
+###  http://www.kr2022.com/snowman#mediumSnowman
+:mediumSnowman rdf:type owl:Class ;
+               rdfs:subClassOf :Snowman .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.kr2022.com/snowman#bigSnowman
+:bigSnowman rdf:type owl:NamedIndividual ,
+                     :Snowman .
+
+
+###  http://www.kr2022.com/snowman#cell00
+:cell00 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell01 ;
+        :hasNorth :wall ;
+        :hasSouth :cell10 ;
+        :hasWest :wall ;
+        :x 0 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell01
+:cell01 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell02 ;
+        :hasNorth :wall ;
+        :hasSouth :cell11 ;
+        :hasWest :cell00 ;
+        :x 0 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell02
+:cell02 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell03 ;
+        :hasNorth :wall ;
+        :hasSouth :cell12 ;
+        :hasWest :cell01 ;
+        :x 0 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell03
+:cell03 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell04 ;
+        :hasNorth :wall ;
+        :hasSouth :cell13 ;
+        :hasWest :cell02 ;
+        :x 0 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell04
+:cell04 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell05 ;
+        :hasNorth :wall ;
+        :hasSouth :cell14 ;
+        :hasWest :cell03 ;
+        :x 0 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell05
+:cell05 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell06 ;
+        :hasNorth :wall ;
+        :hasSouth :cell15 ;
+        :hasWest :cell04 ;
+        :x 0 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell06
+:cell06 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell07 ;
+        :hasNorth :wall ;
+        :hasSouth :cell16 ;
+        :hasWest :cell05 ;
+        :x 0 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell07
+:cell07 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell08 ;
+        :hasNorth :wall ;
+        :hasSouth :cell17 ;
+        :hasWest :cell06 ;
+        :x 0 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell08
+:cell08 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell09 ;
+        :hasNorth :wall ;
+        :hasSouth :cell18 ;
+        :hasWest :cell07 ;
+        :x 0 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell09
+:cell09 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :wall ;
+        :hasSouth :cell19 ;
+        :hasWest :cell08 ;
+        :x 0 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell10
+:cell10 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell11 ;
+        :hasNorth :cell00 ;
+        :hasSouth :cell20 ;
+        :hasWest :wall ;
+        :x 1 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell11
+:cell11 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell12 ;
+        :hasNorth :cell01 ;
+        :hasSouth :cell21 ;
+        :hasWest :cell10 ;
+        :x 1 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell12
+:cell12 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell13 ;
+        :hasNorth :cell02 ;
+        :hasSouth :cell22 ;
+        :hasWest :cell11 ;
+        :x 1 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell13
+:cell13 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell14 ;
+        :hasNorth :cell03 ;
+        :hasSouth :cell23 ;
+        :hasWest :cell12 ;
+        :x 1 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell14
+:cell14 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell15 ;
+        :hasNorth :cell04 ;
+        :hasSouth :cell24 ;
+        :hasWest :cell13 ;
+        :x 1 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell15
+:cell15 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell16 ;
+        :hasNorth :cell05 ;
+        :hasSouth :cell25 ;
+        :hasWest :cell14 ;
+        :x 1 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell16
+:cell16 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell17 ;
+        :hasNorth :cell06 ;
+        :hasSouth :cell26 ;
+        :hasWest :cell15 ;
+        :x 1 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell17
+:cell17 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell18 ;
+        :hasNorth :cell07 ;
+        :hasSouth :cell27 ;
+        :hasWest :cell16 ;
+        :x 1 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell18
+:cell18 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell19 ;
+        :hasNorth :cell08 ;
+        :hasSouth :cell28 ;
+        :hasWest :cell17 ;
+        :x 1 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell19
+:cell19 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell09 ;
+        :hasSouth :cell29 ;
+        :hasWest :cell18 ;
+        :x 1 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell20
+:cell20 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell21 ;
+        :hasNorth :cell10 ;
+        :hasSouth :cell30 ;
+        :hasWest :wall ;
+        :x 2 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell21
+:cell21 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell22 ;
+        :hasNorth :cell11 ;
+        :hasSouth :cell31 ;
+        :hasWest :cell20 ;
+        :x 2 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell22
+:cell22 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell23 ;
+        :hasNorth :cell12 ;
+        :hasSouth :cell32 ;
+        :hasWest :cell21 ;
+        :x 2 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell23
+:cell23 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell24 ;
+        :hasNorth :cell13 ;
+        :hasSouth :cell33 ;
+        :hasWest :cell22 ;
+        :x 2 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell24
+:cell24 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell25 ;
+        :hasNorth :cell14 ;
+        :hasSouth :cell34 ;
+        :hasWest :cell23 ;
+        :x 2 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell25
+:cell25 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell26 ;
+        :hasNorth :cell15 ;
+        :hasSouth :cell35 ;
+        :hasWest :cell24 ;
+        :x 2 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell26
+:cell26 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell27 ;
+        :hasNorth :cell16 ;
+        :hasSouth :cell36 ;
+        :hasWest :cell25 ;
+        :x 2 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell27
+:cell27 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell28 ;
+        :hasNorth :cell17 ;
+        :hasSouth :cell37 ;
+        :hasWest :cell26 ;
+        :x 2 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell28
+:cell28 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell29 ;
+        :hasNorth :cell18 ;
+        :hasSouth :cell38 ;
+        :hasWest :cell27 ;
+        :x 2 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell29
+:cell29 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell19 ;
+        :hasSouth :cell39 ;
+        :hasWest :cell28 ;
+        :x 2 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell30
+:cell30 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell31 ;
+        :hasNorth :cell20 ;
+        :hasSouth :cell40 ;
+        :hasWest :wall ;
+        :x 3 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell31
+:cell31 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell32 ;
+        :hasNorth :cell21 ;
+        :hasSouth :cell41 ;
+        :hasWest :cell30 ;
+        :x 3 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell32
+:cell32 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell33 ;
+        :hasNorth :cell22 ;
+        :hasSouth :cell42 ;
+        :hasWest :cell31 ;
+        :x 3 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell33
+:cell33 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell34 ;
+        :hasNorth :cell23 ;
+        :hasSouth :cell43 ;
+        :hasWest :cell32 ;
+        :x 3 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell34
+:cell34 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell35 ;
+        :hasNorth :cell24 ;
+        :hasSouth :cell44 ;
+        :hasWest :cell33 ;
+        :x 3 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell35
+:cell35 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell36 ;
+        :hasNorth :cell25 ;
+        :hasSouth :cell45 ;
+        :hasWest :cell34 ;
+        :x 3 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell36
+:cell36 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell37 ;
+        :hasNorth :cell26 ;
+        :hasSouth :cell46 ;
+        :hasWest :cell35 ;
+        :x 3 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell37
+:cell37 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell38 ;
+        :hasNorth :cell27 ;
+        :hasSouth :cell47 ;
+        :hasWest :cell36 ;
+        :x 3 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell38
+:cell38 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell39 ;
+        :hasNorth :cell28 ;
+        :hasSouth :cell48 ;
+        :hasWest :cell37 ;
+        :x 3 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell39
+:cell39 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell29 ;
+        :hasSouth :cell49 ;
+        :hasWest :cell38 ;
+        :x 3 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell40
+:cell40 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell41 ;
+        :hasNorth :cell30 ;
+        :hasSouth :cell50 ;
+        :hasWest :wall ;
+        :x 4 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell41
+:cell41 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell42 ;
+        :hasNorth :cell31 ;
+        :hasSouth :cell51 ;
+        :hasWest :cell40 ;
+        :x 4 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell42
+:cell42 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell43 ;
+        :hasNorth :cell32 ;
+        :hasSouth :cell52 ;
+        :hasWest :cell41 ;
+        :x 4 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell43
+:cell43 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell44 ;
+        :hasNorth :cell33 ;
+        :hasSouth :cell53 ;
+        :hasWest :cell42 ;
+        :x 4 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell44
+:cell44 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell45 ;
+        :hasNorth :cell34 ;
+        :hasSouth :cell54 ;
+        :hasWest :cell43 ;
+        :x 4 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell45
+:cell45 rdf:type owl:NamedIndividual ,
+                 :Cell ,
+                 :CellPlayer ;
+        :hasEast :cell46 ;
+        :hasNorth :cell35 ;
+        :hasSouth :cell55 ;
+        :hasWest :cell44 ;
+        :x 4 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell46
+:cell46 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell47 ;
+        :hasNorth :cell36 ;
+        :hasSouth :cell56 ;
+        :hasWest :cell45 ;
+        :x 4 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell47
+:cell47 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell48 ;
+        :hasNorth :cell37 ;
+        :hasSouth :cell57 ;
+        :hasWest :cell46 ;
+        :x 4 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell48
+:cell48 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell49 ;
+        :hasNorth :cell38 ;
+        :hasSouth :cell58 ;
+        :hasWest :cell47 ;
+        :x 4 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell49
+:cell49 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell39 ;
+        :hasSouth :cell59 ;
+        :hasWest :cell48 ;
+        :x 4 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell50
+:cell50 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell51 ;
+        :hasNorth :cell40 ;
+        :hasSouth :cell60 ;
+        :hasWest :wall ;
+        :x 5 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell51
+:cell51 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell52 ;
+        :hasNorth :cell41 ;
+        :hasSouth :cell61 ;
+        :hasWest :cell50 ;
+        :x 5 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell52
+:cell52 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell53 ;
+        :hasNorth :cell42 ;
+        :hasSouth :cell62 ;
+        :hasWest :cell51 ;
+        :x 5 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell53
+:cell53 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell54 ;
+        :hasNorth :cell43 ;
+        :hasSouth :cell63 ;
+        :hasWest :cell52 ;
+        :x 5 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell54
+:cell54 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell55 ;
+        :hasNorth :cell44 ;
+        :hasSouth :cell64 ;
+        :hasWest :cell53 ;
+        :x 5 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell55
+:cell55 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell56 ;
+        :hasNorth :cell45 ;
+        :hasSouth :cell65 ;
+        :hasWest :cell54 ;
+        :x 5 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell56
+:cell56 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell57 ;
+        :hasNorth :cell46 ;
+        :hasSouth :cell66 ;
+        :hasWest :cell55 ;
+        :x 5 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell57
+:cell57 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell58 ;
+        :hasNorth :cell47 ;
+        :hasSouth :cell67 ;
+        :hasWest :cell56 ;
+        :x 5 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell58
+:cell58 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell59 ;
+        :hasNorth :cell48 ;
+        :hasSouth :cell68 ;
+        :hasWest :cell57 ;
+        :x 5 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell59
+:cell59 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell49 ;
+        :hasSouth :cell69 ;
+        :hasWest :cell58 ;
+        :x 5 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell60
+:cell60 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell61 ;
+        :hasNorth :cell50 ;
+        :hasSouth :cell70 ;
+        :hasWest :wall ;
+        :x 6 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell61
+:cell61 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell62 ;
+        :hasNorth :cell51 ;
+        :hasSouth :cell71 ;
+        :hasWest :cell60 ;
+        :x 6 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell62
+:cell62 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell63 ;
+        :hasNorth :cell52 ;
+        :hasSouth :cell72 ;
+        :hasWest :cell61 ;
+        :x 6 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell63
+:cell63 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell64 ;
+        :hasNorth :cell53 ;
+        :hasSouth :cell73 ;
+        :hasWest :cell62 ;
+        :x 6 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell64
+:cell64 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell65 ;
+        :hasNorth :cell54 ;
+        :hasSouth :cell74 ;
+        :hasWest :cell63 ;
+        :x 6 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell65
+:cell65 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell66 ;
+        :hasNorth :cell55 ;
+        :hasSouth :cell75 ;
+        :hasWest :cell64 ;
+        :x 6 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell66
+:cell66 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell67 ;
+        :hasNorth :cell56 ;
+        :hasSouth :cell76 ;
+        :hasWest :cell65 ;
+        :x 6 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell67
+:cell67 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell68 ;
+        :hasNorth :cell57 ;
+        :hasSouth :cell77 ;
+        :hasWest :cell66 ;
+        :x 6 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell68
+:cell68 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell69 ;
+        :hasNorth :cell58 ;
+        :hasSouth :cell78 ;
+        :hasWest :cell67 ;
+        :x 6 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell69
+:cell69 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell59 ;
+        :hasSouth :cell79 ;
+        :hasWest :cell68 ;
+        :x 6 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell70
+:cell70 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell71 ;
+        :hasNorth :cell60 ;
+        :hasSouth :cell80 ;
+        :hasWest :wall ;
+        :x 7 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell71
+:cell71 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell72 ;
+        :hasNorth :cell61 ;
+        :hasSouth :cell81 ;
+        :hasWest :cell70 ;
+        :x 7 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell72
+:cell72 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell73 ;
+        :hasNorth :cell62 ;
+        :hasSouth :cell82 ;
+        :hasWest :cell71 ;
+        :x 7 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell73
+:cell73 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell74 ;
+        :hasNorth :cell63 ;
+        :hasSouth :cell83 ;
+        :hasWest :cell72 ;
+        :x 7 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell74
+:cell74 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell75 ;
+        :hasNorth :cell64 ;
+        :hasSouth :cell84 ;
+        :hasWest :cell73 ;
+        :x 7 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell75
+:cell75 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell76 ;
+        :hasNorth :cell65 ;
+        :hasSouth :cell85 ;
+        :hasWest :cell74 ;
+        :x 7 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell76
+:cell76 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell77 ;
+        :hasNorth :cell66 ;
+        :hasSouth :cell86 ;
+        :hasWest :cell75 ;
+        :x 7 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell77
+:cell77 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell78 ;
+        :hasNorth :cell67 ;
+        :hasSouth :cell87 ;
+        :hasWest :cell76 ;
+        :x 7 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell78
+:cell78 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell79 ;
+        :hasNorth :cell68 ;
+        :hasSouth :cell88 ;
+        :hasWest :cell77 ;
+        :x 7 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell79
+:cell79 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell69 ;
+        :hasSouth :cell89 ;
+        :hasWest :cell78 ;
+        :x 7 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell80
+:cell80 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell81 ;
+        :hasNorth :cell70 ;
+        :hasSouth :cell90 ;
+        :hasWest :wall ;
+        :x 8 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell81
+:cell81 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell82 ;
+        :hasNorth :cell71 ;
+        :hasSouth :cell91 ;
+        :hasWest :cell80 ;
+        :x 8 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell82
+:cell82 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell83 ;
+        :hasNorth :cell72 ;
+        :hasSouth :cell92 ;
+        :hasWest :cell81 ;
+        :x 8 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell83
+:cell83 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell84 ;
+        :hasNorth :cell73 ;
+        :hasSouth :cell93 ;
+        :hasWest :cell82 ;
+        :x 8 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell84
+:cell84 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell85 ;
+        :hasNorth :cell74 ;
+        :hasSouth :cell94 ;
+        :hasWest :cell83 ;
+        :x 8 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell85
+:cell85 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell86 ;
+        :hasNorth :cell75 ;
+        :hasSouth :cell95 ;
+        :hasWest :cell84 ;
+        :x 8 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell86
+:cell86 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell87 ;
+        :hasNorth :cell76 ;
+        :hasSouth :cell96 ;
+        :hasWest :cell85 ;
+        :x 8 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell87
+:cell87 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell88 ;
+        :hasNorth :cell77 ;
+        :hasSouth :cell97 ;
+        :hasWest :cell86 ;
+        :x 8 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell88
+:cell88 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell89 ;
+        :hasNorth :cell78 ;
+        :hasSouth :cell98 ;
+        :hasWest :cell87 ;
+        :x 8 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell89
+:cell89 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell79 ;
+        :hasSouth :cell99 ;
+        :hasWest :cell88 ;
+        :x 8 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#cell90
+:cell90 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell91 ;
+        :hasNorth :cell80 ;
+        :hasSouth :wall ;
+        :hasWest :wall ;
+        :x 9 ;
+        :y 0 .
+
+
+###  http://www.kr2022.com/snowman#cell91
+:cell91 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell92 ;
+        :hasNorth :cell81 ;
+        :hasSouth :wall ;
+        :hasWest :cell90 ;
+        :x 9 ;
+        :y 1 .
+
+
+###  http://www.kr2022.com/snowman#cell92
+:cell92 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell93 ;
+        :hasNorth :cell82 ;
+        :hasSouth :wall ;
+        :hasWest :cell91 ;
+        :x 9 ;
+        :y 2 .
+
+
+###  http://www.kr2022.com/snowman#cell93
+:cell93 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell94 ;
+        :hasNorth :cell83 ;
+        :hasSouth :wall ;
+        :hasWest :cell92 ;
+        :x 9 ;
+        :y 3 .
+
+
+###  http://www.kr2022.com/snowman#cell94
+:cell94 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell95 ;
+        :hasNorth :cell84 ;
+        :hasSouth :wall ;
+        :hasWest :cell93 ;
+        :x 9 ;
+        :y 4 .
+
+
+###  http://www.kr2022.com/snowman#cell95
+:cell95 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell96 ;
+        :hasNorth :cell85 ;
+        :hasSouth :wall ;
+        :hasWest :cell94 ;
+        :x 9 ;
+        :y 5 .
+
+
+###  http://www.kr2022.com/snowman#cell96
+:cell96 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell97 ;
+        :hasNorth :cell86 ;
+        :hasSouth :wall ;
+        :hasWest :cell95 ;
+        :x 9 ;
+        :y 6 .
+
+
+###  http://www.kr2022.com/snowman#cell97
+:cell97 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell98 ;
+        :hasNorth :cell87 ;
+        :hasSouth :wall ;
+        :hasWest :cell96 ;
+        :x 9 ;
+        :y 7 .
+
+
+###  http://www.kr2022.com/snowman#cell98
+:cell98 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :cell99 ;
+        :hasNorth :cell88 ;
+        :hasSouth :wall ;
+        :hasWest :cell97 ;
+        :x 9 ;
+        :y 8 .
+
+
+###  http://www.kr2022.com/snowman#cell99
+:cell99 rdf:type owl:NamedIndividual ,
+                 :Cell ;
+        :hasEast :wall ;
+        :hasNorth :cell89 ;
+        :hasSouth :wall ;
+        :hasWest :cell98 ;
+        :x 9 ;
+        :y 9 .
+
+
+###  http://www.kr2022.com/snowman#littleSnowman
+:littleSnowman rdf:type owl:NamedIndividual ,
+                        :Snowman .
+
+
+###  http://www.kr2022.com/snowman#mediumSnowman
+:mediumSnowman rdf:type owl:NamedIndividual ,
+                        :Snowman .
+
+
+###  http://www.kr2022.com/snowman#wall
+:wall rdf:type owl:NamedIndividual ,
+               :Wall .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+:bigSnowman rdfs:label "bigSnowman" .
+
+
+:littleSnowman rdfs:label "littleSnowman" .
+
+
+:mediumSnowman rdfs:label "mediumSnowman" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
