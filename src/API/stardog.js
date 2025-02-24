@@ -57,6 +57,7 @@ export async function move(destination){
 
 //todo => done
 export async function moveDirection(direction){
+
   const queryString = `
    DELETE {
       ?oldCellPlayer a :CellPlayer
@@ -66,7 +67,7 @@ export async function moveDirection(direction){
     }
     WHERE {
       ?oldCellPlayer a :CellPlayer .
-      ?oldCellPlayer :${direction} ?newCellPlayer
+      ?oldCellPlayer :has${direction.substring(0,1).toUpperCase()}${direction.substring(1)} ?newCellPlayer
     }`
   ;
   const res = await query
@@ -80,14 +81,18 @@ export async function moveDirection(direction){
 }
 export async function getState(){
   const queryString = `
-  select ?player ?north ?south ?east ?west
+  select ?player ?north ?south ?east ?west ?littleSnowman ?mediumSnowman ?bigSnowman
   where {
     ?player a :CellPlayer.
     ?player :hasEast ?east.
     ?player :hasWest ?west.
     ?player :hasNorth ?north.
-    ?player :hasSouth ?south
-}
+    ?player :hasSouth ?south.
+    ?littleSnowman :hasSnowman :littleSnowman.
+    ?mediumSnowman :hasSnowman :mediumSnowman.
+    ?bigSnowman :hasSnowman :bigSnowman.
+    ?bigSnowman :hasSnowman :bigSnowman.
+  }
   `;
   const res = await query
     .execute(conn, database, queryString, 'application/sparql-results+json', {
@@ -102,6 +107,6 @@ export async function getState(){
     if (id in result) result[id] += ' ' + keys[index]
     else result[id] = keys[index]
   })
-  // console.log(result)
+  console.log(result)
   return result
 }

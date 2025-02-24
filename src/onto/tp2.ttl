@@ -26,12 +26,6 @@
           rdfs:range :Cell .
 
 
-###  http://www.kr2022.com/snowman#hasSnowman
-:hasSnowman rdf:type owl:ObjectProperty ;
-            rdfs:domain :Cell ;
-            rdfs:range :Snowman .
-
-
 ###  http://www.kr2022.com/snowman#hasSouth
 :hasSouth rdf:type owl:ObjectProperty ;
           rdfs:domain :Cell ;
@@ -66,14 +60,7 @@
 
 ###  http://www.kr2022.com/snowman#CellBall
 :CellBall rdf:type owl:Class ;
-          owl:equivalentClass [ owl:intersectionOf ( :Cell
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty :hasSnowman ;
-                                                       owl:someValuesFrom :Snowman
-                                                     ]
-                                                   ) ;
-                                rdf:type owl:Class
-                              ] .
+          rdfs:subClassOf :Cell .
 
 
 ###  http://www.kr2022.com/snowman#CellEastPlayer
@@ -87,16 +74,7 @@
 
 ###  http://www.kr2022.com/snowman#CellFree
 :CellFree rdf:type owl:Class ;
-          owl:equivalentClass [ owl:intersectionOf ( :Cell
-                                                     [ rdf:type owl:Class ;
-                                                       owl:complementOf [ rdf:type owl:Restriction ;
-                                                                          owl:onProperty :hasSnowman ;
-                                                                          owl:someValuesFrom :Snowman
-                                                                        ]
-                                                     ]
-                                                   ) ;
-                                rdf:type owl:Class
-                              ] .
+          rdfs:subClassOf :Cell .
 
 
 ###  http://www.kr2022.com/snowman#CellNorthPlayer
@@ -131,52 +109,9 @@
                 rdfs:subClassOf :Cell .
 
 
-###  http://www.kr2022.com/snowman#MovableToEast
-:MovableToEast rdf:type owl:Class ;
-               owl:equivalentClass [ owl:intersectionOf ( :CellBall
-                                                          [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :hasEast ;
-                                                            owl:someValuesFrom :CellFree
-                                                          ]
-                                                        ) ;
-                                     rdf:type owl:Class
-                                   ] .
-
-
 ###  http://www.kr2022.com/snowman#MovableToNorth
 :MovableToNorth rdf:type owl:Class ;
-                owl:equivalentClass [ owl:intersectionOf ( :CellBall
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty :hasNorth ;
-                                                             owl:someValuesFrom :CellFree
-                                                           ]
-                                                         ) ;
-                                      rdf:type owl:Class
-                                    ] .
-
-
-###  http://www.kr2022.com/snowman#MovableToSouth
-:MovableToSouth rdf:type owl:Class ;
-                owl:equivalentClass [ owl:intersectionOf ( :CellBall
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty :hasSouth ;
-                                                             owl:someValuesFrom :CellFree
-                                                           ]
-                                                         ) ;
-                                      rdf:type owl:Class
-                                    ] .
-
-
-###  http://www.kr2022.com/snowman#MovableToWest
-:MovableToWest rdf:type owl:Class ;
-               owl:equivalentClass [ owl:intersectionOf ( :CellBall
-                                                          [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :hasWest ;
-                                                            owl:someValuesFrom :CellFree
-                                                          ]
-                                                        ) ;
-                                     rdf:type owl:Class
-                                   ] .
+                rdfs:subClassOf :Cell .
 
 
 ###  http://www.kr2022.com/snowman#Snowman
