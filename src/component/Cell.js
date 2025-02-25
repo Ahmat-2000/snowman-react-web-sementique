@@ -8,9 +8,7 @@ export default function Cell (props) {
   const key = `cell${props.x}${props.y}`
 
   useEffect(() => {
-    setType(props.types[key]);
-    console.log("type : "+ type);
-    
+    setType(props.types[key]);    
   }, [props.types])
 
   const click = () => {
@@ -25,7 +23,11 @@ export default function Cell (props) {
     <div
       onClick={click}
       className={`cell ${type}`}
-      style={{ top: WIDTH * props.x + 'px', left: WIDTH * props.y + 'px' }}
+      style={{ 
+        top: WIDTH * props.x + 'px', 
+        left: WIDTH * props.y + 'px',   
+        backgroundColor: "#282c34" 
+      }}
     >
       {/* <>{props.x + '' + props.y}</> */}
     </div>

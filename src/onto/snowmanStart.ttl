@@ -140,7 +140,8 @@
                                                           ]
                                                         ) ;
                                      rdf:type owl:Class
-                                   ] .
+                                   ] ;
+               rdfs:comment "MovableToEast" .
 
 
 ###  http://www.kr2022.com/snowman#MovableToNorth

@@ -45,6 +45,7 @@
 }
 .container{
   position: relative; 
+  background-color: #282c34;
 }
 .cell{
   color: rgb(29, 88, 29);
@@ -65,6 +66,7 @@
 
 .littleSnowman{
   background-image: url('assets/small-50.png');
+
 }
 
 .mediumSnowman{
