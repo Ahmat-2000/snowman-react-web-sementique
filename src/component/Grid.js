@@ -7,10 +7,12 @@ const SIZE = 10;
 
 export default function Grid() {
   const [types, setTypes] = useState({});
-  const [movement, setMovement] = useState("");
+  const [snowTypes, setSnowTypes] = useState({});
 
   const update = () => {
-    getState().then(setTypes);
+    getState()
+    .then(setTypes) 
+    .catch(console.error);
   };
 
   useEffect(() => {
@@ -27,13 +29,17 @@ export default function Grid() {
         x={x}
         y={y}
         update={update}
-        movement={movement}
       />
     );
   });
 
   return (
     <div className='parent'>
+      <div className=''>
+        <button className='reset-btn' onClick={() => {}}>
+          Reset the game
+        </button>
+      </div>
       <div className='container'>
         {cells}
       </div>

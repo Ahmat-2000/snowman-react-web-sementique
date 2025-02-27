@@ -23,9 +23,7 @@ export default function Cell (props) {
     <div
       onClick={click}
       className={`cell ${type}`}
-      style={{ 
-        top: WIDTH * props.x + 'px', 
-        left: WIDTH * props.y + 'px',   
+      style={{   
         backgroundColor: "#282c34" 
       }}
     >

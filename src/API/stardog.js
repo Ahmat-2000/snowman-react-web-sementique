@@ -127,17 +127,13 @@ export async function moveDirection(direction){
 
 export async function getState(){
   const queryString = `
-  select ?player ?north ?south ?east ?west ?littleSnowman ?mediumSnowman ?bigSnowman
+  select ?player ?north ?south ?east ?west 
   where {
     ?player a :CellPlayer.
-    ?player :hasEast ?east.
-    ?player :hasWest ?west.
-    ?player :hasNorth ?north.
-    ?player :hasSouth ?south.
-    ?littleSnowman :hasSnowman :littleSnowman.
-    ?mediumSnowman :hasSnowman :mediumSnowman.
-    ?bigSnowman :hasSnowman :bigSnowman.
-    ?bigSnowman :hasSnowman :bigSnowman.
+    OPTIONAL { ?player :hasNorth ?north . }
+    OPTIONAL { ?player :hasSouth ?south . }
+    OPTIONAL { ?player :hasEast ?east . }
+    OPTIONAL { ?player :hasWest ?west . }
   }
   `;
   const res = await query
