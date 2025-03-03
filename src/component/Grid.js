@@ -1,6 +1,6 @@
 // Grid.js
 import React, { useState, useEffect } from 'react';
-import { getState, resetGame } from '../API/stardog';
+import { getState, resetGame, checkMove } from '../API/stardog';
 import Cell from './Cell';
 
 const SIZE = 10;
@@ -8,7 +8,6 @@ const SIZE = 10;
 export default function Grid() {
   const [types, setTypes] = useState({});
   const [snowTypes, setSnowTypes] = useState({});
-
   const update = () => {
     getState()
     .then(setTypes) 
@@ -23,6 +22,18 @@ export default function Grid() {
 
   useEffect(() => {
     update();
+    const directions = ["north", "south", "east", "west"];
+
+    // Exécuter toutes les requêtes en parallèle
+    Promise.all(directions.map(async (dir) => {
+      const data = await checkMove(dir);
+      return { direction: dir, result: data };
+    }))
+    .then(results => {
+      console.table(results); // Affichage propre en tableau
+    })
+    .catch(error => console.error("Error fetching movement data:", error));
+    
   }, []);
 
   const cells = Array.from({ length: SIZE * SIZE }, (_, index) => {

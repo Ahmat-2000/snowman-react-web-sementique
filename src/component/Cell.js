@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { moveDirection } from '../API/stardog'
+import { handleMove } from '../API/stardog'
 
 const WIDTH = 50
 
@@ -16,12 +16,24 @@ export default function Cell (props) {
   }, [props.types, key]);
 
   const click = () => {
-    if(type && type !== "player") {
-      moveDirection(type).then(props.update);
-      console.log("Player moved to "+key);
-      console.log("Type of cell : "+type);
+    if (!type) return;
+  
+    // Séparer les différentes valeurs (ex: "north littleSnowman" -> ["north", "littleSnowman"])
+    const types = type.split(" ");
+    const validDirections = ["north", "south", "east", "west"];
+    
+    // Trouver la direction valide
+    const direction = types.find(t => validDirections.includes(t));
+  
+    if (direction) {
+      handleMove(direction)
+        .then(props.update)
+        .catch(console.error);
+    } else {
+      console.warn("No valid direction found for:", type);
     }
-  }
+  };
+  
 
   return (
     <div
