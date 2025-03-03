@@ -195,12 +195,20 @@
 
 ###  http://www.kr2022.com/snowman#finalSnowman
 :finalSnowman rdf:type owl:Class ;
-              rdfs:subClassOf :Snowman .
+              rdfs:subClassOf :Snowman ;
+              rdfs:label "finalSnowman" .
+
+
+###  http://www.kr2022.com/snowman#littleAndBigSnowman
+:littleAndBigSnowman rdf:type owl:Class ;
+                     rdfs:subClassOf :Snowman ;
+                     rdfs:label "littleAndBigSnowman" .
 
 
 ###  http://www.kr2022.com/snowman#littleAndMediumSnowman
 :littleAndMediumSnowman rdf:type owl:Class ;
-                        rdfs:subClassOf :Snowman .
+                        rdfs:subClassOf :Snowman ;
+                        rdfs:label "littleAndMediumSnowman" .
 
 
 ###  http://www.kr2022.com/snowman#littleSnowman
@@ -210,7 +218,8 @@
 
 ###  http://www.kr2022.com/snowman#mediumAndBigSnowman
 :mediumAndBigSnowman rdf:type owl:Class ;
-                     rdfs:subClassOf :Snowman .
+                     rdfs:subClassOf :Snowman ;
+                     rdfs:label "mediumAndBigSnowman" .
 
 
 ###  http://www.kr2022.com/snowman#mediumSnowman

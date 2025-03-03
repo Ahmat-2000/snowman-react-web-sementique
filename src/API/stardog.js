@@ -32,7 +32,6 @@ export async function getPlayer() {
   return bindings.length > 0 ? uriToId(bindings[0].player.value) : null;
 }
 
-
 export async function move(destination){
   const queryString = `
     DELETE { ?oldCellPlayer a :CellPlayer }
@@ -83,7 +82,7 @@ export async function getState() {
       }
     });
   });
-  // console.log(extractedData)
+  console.log(extractedData)
   return extractedData;
 }
 
@@ -97,7 +96,7 @@ export async function resetGame() {
 
   # Réinsérer les éléments initiaux
   INSERT DATA {
-    :cell55 a :CellPlayer .
+    :cell45 a :CellPlayer .
     :cell22 :hasSnowman :littleSnowman .
     :cell88 :hasSnowman :mediumSnowman .
     :cell82 :hasSnowman :bigSnowman .
