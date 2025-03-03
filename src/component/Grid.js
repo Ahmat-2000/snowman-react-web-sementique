@@ -1,6 +1,6 @@
 // Grid.js
 import React, { useState, useEffect } from 'react';
-import { getState } from '../API/stardog'
+import { getState, resetGame } from '../API/stardog';
 import Cell from './Cell';
 
 const SIZE = 10;
@@ -14,6 +14,12 @@ export default function Grid() {
     .then(setTypes) 
     .catch(console.error);
   };
+
+  const handleReset = async () => {
+    await resetGame();
+    update(); // Mettre à jour la grille après reset
+  };
+
 
   useEffect(() => {
     update();
@@ -36,8 +42,8 @@ export default function Grid() {
   return (
     <div className='parent'>
       <div className=''>
-        <button className='reset-btn' onClick={() => {}}>
-          Reset the game
+        <button className='reset-btn' onClick={handleReset}>
+          Restart the game
         </button>
       </div>
       <div className='container'>

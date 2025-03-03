@@ -8,8 +8,12 @@ export default function Cell (props) {
   const key = `cell${props.x}${props.y}`
 
   useEffect(() => {
-    setType(props.types[key]);    
-  }, [props.types])
+    if (props.types && props.types[key]) {
+      setType(props.types[key]);
+    } else {
+      setType('');
+    }
+  }, [props.types, key]);
 
   const click = () => {
     if(type && type !== "player") {
