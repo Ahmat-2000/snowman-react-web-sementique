@@ -19,9 +19,7 @@ export default function Grid() {
     update(); // Mettre à jour la grille après reset
   };
 
-
-  useEffect(() => {
-    update();
+  const debug = () => {
     const directions = ["north", "south", "east", "west"];
 
     // Exécuter toutes les requêtes en parallèle
@@ -34,6 +32,11 @@ export default function Grid() {
     })
     .catch(error => console.error("Error fetching movement data:", error));
     
+  }
+
+  useEffect(() => {
+    update();
+    // debug();
   }, []);
 
   const cells = Array.from({ length: SIZE * SIZE }, (_, index) => {
