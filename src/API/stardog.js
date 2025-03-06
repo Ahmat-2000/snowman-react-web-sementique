@@ -49,7 +49,7 @@ export async function move(destination){
 
 export async function getState() {
   const queryString = `
-  SELECT ?player ?north ?south ?east ?west ?littleSnowman ?mediumSnowman ?bigSnowman
+  SELECT ?player ?north ?south ?east ?west ?littleSnowman ?mediumSnowman ?bigSnowman ?littleAndMediumSnowman ?mediumAndBigSnowman ?littleAndBigSnowman ?finalSnowman
   WHERE {
     ?player a :CellPlayer.
     OPTIONAL { ?player :hasNorth ?north . }
@@ -59,6 +59,10 @@ export async function getState() {
     OPTIONAL { ?littleSnowman :hasSnowman :littleSnowman . }
     OPTIONAL { ?mediumSnowman :hasSnowman :mediumSnowman . }
     OPTIONAL { ?bigSnowman :hasSnowman :bigSnowman . }
+    OPTIONAL { ?littleAndBigSnowman :hasSnowman :littleAndBigSnowman . }
+    OPTIONAL { ?littleAndMediumSnowman :hasSnowman :littleAndMediumSnowman . }
+    OPTIONAL { ?mediumAndBigSnowman :hasSnowman :mediumAndBigSnowman . }
+    OPTIONAL { ?finalSnowman :hasSnowman :finalSnowman . }
   }
   `;
 
@@ -96,9 +100,9 @@ export async function resetGame() {
 
   # Réinsérer les éléments initiaux
   INSERT DATA {
-    :cell45 a :CellPlayer .
-    :cell22 :hasSnowman :littleSnowman .
-    :cell88 :hasSnowman :mediumSnowman .
+    :cell54 a :CellPlayer .
+    :cell25 :hasSnowman :littleSnowman .
+    :cell68 :hasSnowman :mediumSnowman .
     :cell82 :hasSnowman :bigSnowman .
   }
   `;
@@ -119,30 +123,32 @@ export async function checkMove(dir) {
 
   const relation = directions[dir];
 
-  // Vérifier la cellule actuelle du joueur et son voisin
-  const checkQuery = `
-    SELECT ?newCell ?snowman ?nextCell
+  const queryString = `
+    SELECT ?newCell ?snowman ?nextCell ?nextSnowman
     WHERE {
       ?player a :CellPlayer .
       ?player :${relation} ?newCell .
-      OPTIONAL { ?newCell :hasSnowman ?snowman . }  
+      OPTIONAL { ?newCell :hasSnowman ?snowman . }
       OPTIONAL { 
         ?newCell :${relation} ?nextCell .
+        OPTIONAL { ?nextCell :hasSnowman ?nextSnowman . }
       }
     }
   `;
 
-  const checkRes = await query.execute(conn, database, checkQuery, 'application/sparql-results+json', {
+  const checkRes = await query.execute(conn, database, queryString, 'application/sparql-results+json', {
     reasoning: true
   });
 
   if (!checkRes.ok) throw checkRes.statusText;
 
   const bindings = checkRes.body.results.bindings;
-  if (bindings.length === 0) return null; 
 
-  return extractData(bindings);
+  return (bindings.length === 0) ? null : extractData(bindings);
 }
+
+/**
+
 
 export async function handleMove(dir) {
   const extractedData = await checkMove(dir);
@@ -151,18 +157,14 @@ export async function handleMove(dir) {
     return;
   }
 
-  const { newCell, snowman, nextCell } = extractedData;
+  const { newCell, snowman, nextCell, nextSnowman } = extractedData;
 
   if (!newCell || newCell === "wall") {
     console.warn("Invalid move: No cell in this direction.");
     return;
   }
 
-  let queryString = `
-    DELETE { ?player a :CellPlayer }
-    INSERT { :${newCell} a :CellPlayer }
-    WHERE { ?player a :CellPlayer }
-  `;
+  let queryString = null;
 
   if (snowman) {
     if (!nextCell || nextCell === "wall") {
@@ -170,13 +172,26 @@ export async function handleMove(dir) {
       return;
     }
 
+    if (nextSnowman) {
+      const assembled = await assembleSnowman(newCell, nextCell, snowman, nextSnowman);
+      if (assembled) {
+        console.log(`Snowman assembled at ${nextCell}`);
+        return; // Arrêter ici si la fusion a eu lieu
+      }
+    } else {
+      queryString = `
+        DELETE { :${newCell} :hasSnowman :${snowman} }
+        INSERT { :${nextCell} :hasSnowman :${snowman} }
+        WHERE { :${newCell} :hasSnowman :${snowman} }
+      `;
+    }
+  }
+
+  if (!queryString) {
     queryString = `
-      DELETE { ?player a :CellPlayer .
-               :${newCell} :hasSnowman :${snowman} }
-      INSERT { :${newCell} a :CellPlayer .
-               :${nextCell} :hasSnowman :${snowman} }
-      WHERE { ?player a :CellPlayer .
-              :${newCell} :hasSnowman :${snowman} }
+      DELETE { ?player a :CellPlayer }
+      INSERT { :${newCell} a :CellPlayer }
+      WHERE { ?player a :CellPlayer }
     `;
   }
 
@@ -189,4 +204,108 @@ export async function handleMove(dir) {
   console.log(`Player moved to ${newCell}${snowman ? ` and snowman moved to ${nextCell}` : ''}`);
 }
 
+ */
 
+export async function handleMove(dir) {
+  const extractedData = await checkMove(dir);
+  if (!extractedData) {
+    console.warn(`No available move in direction: ${dir}`);
+    return;
+  }
+
+  const { newCell, snowman, nextCell, nextSnowman } = extractedData;
+
+  if (!newCell || newCell === "wall") {
+    console.warn("Invalid move: No cell in this direction.");
+    return;
+  }
+
+  let  queryString = `
+    DELETE { ?player a :CellPlayer }
+    INSERT { :${newCell} a :CellPlayer }
+    WHERE { ?player a :CellPlayer }
+  `;
+
+  if (snowman) {
+    if (!nextCell || nextCell === "wall") {
+      console.warn("Cannot push the snowman, no valid cell behind!");
+      return;
+    }
+
+    if (nextSnowman) {
+      const assembled = await assembleSnowman(newCell, nextCell, snowman, nextSnowman);
+      if (assembled) {
+        console.log(`Snowman assembled at ${nextCell}`);
+      }
+    } else {
+      // Pousser un snowman et déplacer le joueur
+      queryString = `
+        DELETE { 
+          ?player a :CellPlayer .
+          :${newCell} :hasSnowman :${snowman} 
+        }
+        INSERT { 
+          :${newCell} a :CellPlayer .
+          :${nextCell} :hasSnowman :${snowman} 
+        }
+        WHERE { 
+          ?player a :CellPlayer .
+          :${newCell} :hasSnowman :${snowman} 
+        }
+      `;
+    }
+  } 
+
+  const res = await query.execute(conn, database, queryString, 'application/sparql-results+json', {
+    reasoning: true
+  });
+
+  if (!res.ok) throw res.statusText;
+
+  console.log(`Player moved to ${newCell}${snowman ? ` and snowman moved to ${nextCell}` : ''}`);
+}
+
+export async function assembleSnowman(cellA, cellB, snowmanA, snowmanB) {
+  // Règles mises à jour selon la nouvelle ontologie
+  const fusionRules = {
+    "littleSnowman:mediumSnowman": "littleAndMediumSnowman",
+    "mediumSnowman:bigSnowman": "mediumAndBigSnowman",
+    "littleSnowman:bigSnowman": "littleAndBigSnowman",
+    "littleAndMediumSnowman:bigSnowman": "finalSnowman",
+    "mediumAndBigSnowman:littleSnowman": "finalSnowman",
+    "littleAndBigSnowman:mediumSnowman": "finalSnowman"
+  };
+
+  // Vérifier dans les deux sens (ex: A + B ou B + A)
+  const key1 = `${snowmanA}:${snowmanB}`;
+  const key2 = `${snowmanB}:${snowmanA}`;
+
+  let newSnowman = fusionRules[key1] || fusionRules[key2];
+
+  if (!newSnowman) {
+    console.warn(`Cannot assemble ${snowmanA} and ${snowmanB}`);
+    return false;
+  }
+
+  // Requête SPARQL pour fusionner les deux Snowmen
+  const queryString = `
+    DELETE { 
+      :${cellA} :hasSnowman :${snowmanA} .
+      :${cellB} :hasSnowman :${snowmanB} 
+    }
+    INSERT { :${cellB} :hasSnowman :${newSnowman} }
+    WHERE { 
+      :${cellA} :hasSnowman :${snowmanA} .
+      :${cellB} :hasSnowman :${snowmanB} 
+    }
+  `;
+
+  const res = await query.execute(conn, database, queryString, 'application/sparql-results+json', {
+    reasoning: true
+  });
+
+  if (!res.ok) throw res.statusText;
+
+  console.log(`Snowmen merged into ${newSnowman} at ${cellB}`);
+  return true;
+}

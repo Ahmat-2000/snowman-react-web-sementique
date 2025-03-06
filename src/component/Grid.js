@@ -7,7 +7,6 @@ const SIZE = 10;
 
 export default function Grid() {
   const [types, setTypes] = useState({});
-  const [snowTypes, setSnowTypes] = useState({});
   const update = () => {
     getState()
     .then(setTypes) 
@@ -36,7 +35,6 @@ export default function Grid() {
 
   useEffect(() => {
     update();
-    // debug();
   }, []);
 
   const cells = Array.from({ length: SIZE * SIZE }, (_, index) => {

@@ -93,7 +93,22 @@
 .bigSnowman{
   background-image: url('assets/big-50.png');
 }
+/*-----------------*/
+.mediumAndBigSnowman{
+  background-image: url('assets/mediumBig-50.png');
+}
 
+.littleAndBigSnowman{
+  background-image: url('assets/smallBig-50.png');
+}
+
+.littleAndMediumSnowman{
+  background-image: url('assets/smallMedium-50.png');
+}
+
+.finalSnowman{
+  background-image: url('assets/snowman-50.png');
+}
 
 /* .north {
   background-image: url('assets/up-50.png');
