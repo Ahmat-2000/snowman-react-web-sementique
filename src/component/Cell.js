@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { handleMove } from '../API/stardog'
+import React, { useState, useEffect } from 'react';
+import { handleMove } from '../API/stardog';
 
-const WIDTH = 50
-
-export default function Cell (props) {
-  const [type, setType] = useState('')
-  const key = `cell${props.x}${props.y}`
+export default function Cell(props) {
+  const [type, setType] = useState('');
+  const key = `cell${props.x}${props.y}`;
 
   useEffect(() => {
     setType(props.types && props.types[key] ? props.types[key] : '');
@@ -13,14 +11,12 @@ export default function Cell (props) {
 
   const click = () => {
     if (!type) return;
-  
-    // Séparer les différentes valeurs (ex: "north littleSnowman" -> ["north", "littleSnowman"])
+
     const types = type.split(" ");
     const validDirections = ["north", "south", "east", "west"];
     
-    // Trouver la direction valide
     const direction = types.find(t => validDirections.includes(t));
-  
+
     if (direction) {
       handleMove(direction)
         .then(props.update)
@@ -29,17 +25,16 @@ export default function Cell (props) {
       console.warn("No valid direction found for:", type);
     }
   };
-  
 
   return (
     <div
       onClick={click}
       className={`cell ${type}`}
       style={{   
-        backgroundColor: "#282c34" 
+        backgroundColor: "gray" 
       }}
     >
-      {/* <>{props.x + '' + props.y}</> */}
+      <>{props.x + '' + props.y}</>
     </div>
-  )
+  );
 }

@@ -86,7 +86,7 @@ export async function getState() {
       }
     });
   });
-  console.log(extractedData)
+  // console.log(extractedData)
   return extractedData;
 }
 

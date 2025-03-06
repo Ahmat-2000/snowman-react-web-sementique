@@ -1,42 +1,59 @@
-// Grid.js
-import React, { useState, useEffect } from 'react';
-import { getState, resetGame, checkMove } from '../API/stardog';
+import React, { useState, useEffect, useCallback } from 'react';
+import { getState, resetGame, handleMove } from '../API/stardog';
 import Cell from './Cell';
 
 const SIZE = 10;
 
 export default function Grid() {
   const [types, setTypes] = useState({});
-  const update = () => {
+
+  // Fonction pour mettre à jour l'état du jeu
+  const update = useCallback(() => {
     getState()
-    .then(setTypes) 
-    .catch(console.error);
-  };
-
-  const handleReset = async () => {
-    await resetGame();
-    update(); // Mettre à jour la grille après reset
-  };
-
-  const debug = () => {
-    const directions = ["north", "south", "east", "west"];
-
-    // Exécuter toutes les requêtes en parallèle
-    Promise.all(directions.map(async (dir) => {
-      const data = await checkMove(dir);
-      return { direction: dir, result: data };
-    }))
-    .then(results => {
-      console.table(results); // Affichage propre en tableau
-    })
-    .catch(error => console.error("Error fetching movement data:", error));
-    
-  }
-
-  useEffect(() => {
-    update();
+      .then(setTypes)
+      .catch(console.error);
   }, []);
 
+  // Fonction de réinitialisation du jeu
+  const handleReset = async () => {
+    await resetGame();
+    update(); // Rafraîchir la grille après reset
+  };
+
+  // Gestion des touches clavier globalement
+  const handleKeyPress = useCallback((event) => {
+    const keyDirectionMap = {
+      ArrowUp: "north",
+      ArrowDown: "south",
+      ArrowLeft: "west",
+      ArrowRight: "east"
+    };
+
+    const direction = keyDirectionMap[event.key];
+
+    if (direction) {
+      handleMove(direction)
+        .then(update)
+        .catch(console.error);
+    } else {
+      console.warn("No valid direction found");
+    }
+  }, [update]);
+
+  // Ajouter une seule fois l'écouteur de touches clavier
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [handleKeyPress]); // On l'ajoute uniquement quand `handleKeyPress` change
+
+  // Charger l'état du jeu une seule fois au montage
+  useEffect(() => {
+    update();
+  }, [update]);
+
+  // Générer la grille de cellules
   const cells = Array.from({ length: SIZE * SIZE }, (_, index) => {
     const x = Math.floor(index / SIZE);
     const y = index % SIZE;
@@ -64,4 +81,3 @@ export default function Grid() {
     </div>
   );
 }
-
