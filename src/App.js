@@ -1,11 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
+import Snowflakes from './component/Snowflakes';
 import Grid from './component/Grid';
 
 function App() {
   return (
     <div className="App">
-      <Grid/>
+      <h1>❄️ Snowman Game ❄️</h1>
+      <Snowflakes />
+      <Grid />
     </div>
   );
 }

@@ -1,127 +1,110 @@
-.App {
+/* Variables CSS pour une personnalisation facile */
+:root {
+  --primary-color: #1e90f9;
+  --secondary-color: #1d83e2;
+  --hover-color: #2186e6;
+  --text-color: white;
+  --border-color: rgba(255, 255, 255, 0.3);
+  --shadow-color: rgba(255, 255, 255, 0.6);
+  --bg-dark: #0a3d62;
+}
+
+/* Réinitialisation des marges et bordures */
+* {
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  border: none;
+  box-sizing: border-box;
+}
+
+/* Style général */
+body {
+  margin-top: 40px;
+  background: var(--primary-color);
+  font-family: 'Poppins', sans-serif;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Interface du jeu */
+.parent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  row-gap: 50px;
+  margin-top: 50px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.reset-btn {
-  display: block;
-  padding: 10px;
+/* Grille du jeu */
+.container {
+  display: grid;
+  grid-template-columns: repeat(10, 70px);
+  grid-template-rows: repeat(10, 70px);
   border-radius: 5px;
-  background-color: #61dafb;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
+  box-shadow: 0px 0px 10px var(--hover-color);
+}
+
+/* Bouton Restart */
+.reset-btn {
+  padding: 15px;
+  font-size: 20px;
+  font-weight: 400;
+  border-radius: 5px;
+  background: var(--secondary-color);
+  color: var(--text-color);
   cursor: pointer;
-  transition: background 0.5s ease;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .reset-btn:hover {
-  background-color: #298da8;
-  color: white;
+  background: var(--hover-color);
+  transform: scale(1.1);
 }
 
-.parent{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 20px;
-  padding: 20px;
-  margin-top: 20px;
-}
-.container {
-  display: grid;
-  grid-template-columns: repeat(10, 50px);
-  grid-template-rows: repeat(10, 50px);
-  background-color: #282c34;
-  width: 500px; /* 10 * 50px */
-  height: 500px;
+/* Style des cellules */
+.cell {
+  border: 1px solid var(--border-color);
+  transition: transform 0.1s ease-in-out, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-color: var(--primary-color);
 }
 
-.cell{
-  width: 50px;
-  height: 50px;
-  border: 1px solid lightgray;
-  font-weight: bold;
+.cell:hover {
+  transform: scale(1.018);
+  box-shadow: 0px 0px 5px var(--shadow-color);
 }
 
-.player{
-  background-image: url('assets/player-50.png');
+/* Apparence des Snowmen et Player */
+.player { background-image: url('assets/player.png'); }
+.littleSnowman { background-image: url('assets/small.png'); }
+.mediumSnowman { background-image: url('assets/medium.png'); }
+.bigSnowman { background-image: url('assets/big.png'); }
+.mediumAndBigSnowman { background-image: url('assets/mediumBig.png'); }
+.littleAndBigSnowman { background-image: url('assets/smallBig.png'); }
+.littleAndMediumSnowman { background-image: url('assets/smallMedium.png'); }
+.finalSnowman { background-image: url('assets/snowman.png'); }
+
+/* Animation de neige */
+@keyframes snowfall {
+  from { transform: translateY(-85vh); }
+  to { transform: translateY(10vh); }
 }
 
-.littleSnowman{
-  background-image: url('assets/small-50.png');
+.snowflakes {
+  position: absolute;
+  pointer-events: none;
 }
 
-.mediumSnowman{
-  background-image: url('assets/medium-50.png');
+.snowflake {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: ghostwhite;
+  opacity: 0.7;
+  border-radius: 50%;
+  animation: snowfall linear infinite;
+  /* z-index: -1; */
 }
-
-.bigSnowman{
-  background-image: url('assets/big-50.png');
-}
-/*-----------------*/
-.mediumAndBigSnowman{
-  background-image: url('assets/mediumBig-50.png');
-}
-
-.littleAndBigSnowman{
-  background-image: url('assets/smallBig-50.png');
-}
-
-.littleAndMediumSnowman{
-  background-image: url('assets/smallMedium-50.png');
-}
-
-.finalSnowman{
-  background-image: url('assets/snowman-50.png');
-}
-
-/* .north {
-  background-image: url('assets/up-50.png');
-}
-
-.south {
-  background-image: url('assets/down-50.png');
-}
-
-.west {
-  background-image: url('assets/left-50.png');
-}
-
-.east {
-  background-image: url('assets/right-50.png');
-} */

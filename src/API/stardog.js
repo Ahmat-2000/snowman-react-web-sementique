@@ -147,65 +147,6 @@ export async function checkMove(dir) {
   return (bindings.length === 0) ? null : extractData(bindings);
 }
 
-/**
-
-
-export async function handleMove(dir) {
-  const extractedData = await checkMove(dir);
-  if (!extractedData) {
-    console.warn(`No available move in direction: ${dir}`);
-    return;
-  }
-
-  const { newCell, snowman, nextCell, nextSnowman } = extractedData;
-
-  if (!newCell || newCell === "wall") {
-    console.warn("Invalid move: No cell in this direction.");
-    return;
-  }
-
-  let queryString = null;
-
-  if (snowman) {
-    if (!nextCell || nextCell === "wall") {
-      console.warn("Cannot push the snowman, no valid cell behind!");
-      return;
-    }
-
-    if (nextSnowman) {
-      const assembled = await assembleSnowman(newCell, nextCell, snowman, nextSnowman);
-      if (assembled) {
-        console.log(`Snowman assembled at ${nextCell}`);
-        return; // Arrêter ici si la fusion a eu lieu
-      }
-    } else {
-      queryString = `
-        DELETE { :${newCell} :hasSnowman :${snowman} }
-        INSERT { :${nextCell} :hasSnowman :${snowman} }
-        WHERE { :${newCell} :hasSnowman :${snowman} }
-      `;
-    }
-  }
-
-  if (!queryString) {
-    queryString = `
-      DELETE { ?player a :CellPlayer }
-      INSERT { :${newCell} a :CellPlayer }
-      WHERE { ?player a :CellPlayer }
-    `;
-  }
-
-  const res = await query.execute(conn, database, queryString, 'application/sparql-results+json', {
-    reasoning: true
-  });
-
-  if (!res.ok) throw res.statusText;
-
-  console.log(`Player moved to ${newCell}${snowman ? ` and snowman moved to ${nextCell}` : ''}`);
-}
-
- */
-
 export async function handleMove(dir) {
   const extractedData = await checkMove(dir);
   if (!extractedData) {
@@ -266,7 +207,7 @@ export async function handleMove(dir) {
 }
 
 export async function assembleSnowman(cellA, cellB, snowmanA, snowmanB) {
-  // Règles mises à jour selon la nouvelle ontologie
+  // Règles de fusion
   const fusionRules = {
     "littleSnowman:mediumSnowman": "littleAndMediumSnowman",
     "mediumSnowman:bigSnowman": "mediumAndBigSnowman",
@@ -276,7 +217,7 @@ export async function assembleSnowman(cellA, cellB, snowmanA, snowmanB) {
     "littleAndBigSnowman:mediumSnowman": "finalSnowman"
   };
 
-  // Vérifier dans les deux sens (ex: A + B ou B + A)
+  // Vérifier dans les deux sens 
   const key1 = `${snowmanA}:${snowmanB}`;
   const key2 = `${snowmanB}:${snowmanA}`;
 

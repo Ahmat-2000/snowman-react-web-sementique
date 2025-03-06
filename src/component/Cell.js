@@ -30,11 +30,6 @@ export default function Cell(props) {
     <div
       onClick={click}
       className={`cell ${type}`}
-      style={{   
-        backgroundColor: "gray" 
-      }}
-    >
-      <>{props.x + '' + props.y}</>
-    </div>
+    />
   );
 }

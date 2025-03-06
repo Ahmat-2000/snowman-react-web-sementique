@@ -17,7 +17,7 @@ export default function Grid() {
   // Fonction de réinitialisation du jeu
   const handleReset = async () => {
     await resetGame();
-    update(); // Rafraîchir la grille après reset
+    update(); 
   };
 
   // Gestion des touches clavier globalement
@@ -46,12 +46,12 @@ export default function Grid() {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [handleKeyPress]); // On l'ajoute uniquement quand `handleKeyPress` change
+  }, [handleKeyPress]); 
 
   // Charger l'état du jeu une seule fois au montage
   useEffect(() => {
     update();
-  }, [update]);
+  }, []);
 
   // Générer la grille de cellules
   const cells = Array.from({ length: SIZE * SIZE }, (_, index) => {
