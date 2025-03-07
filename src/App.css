@@ -17,10 +17,18 @@
   border: none;
   box-sizing: border-box;
 }
+/* Empêche le scroll horizontal et vertical */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
 
 /* Style général */
 body {
-  margin-top: 40px;
+  position: relative;
+  margin-top: 20px;
   background: var(--primary-color);
   font-family: 'Poppins', sans-serif;
   text-align: center;
@@ -94,17 +102,10 @@ body {
   to { transform: translateY(10vh); }
 }
 
-.snowflakes {
-  position: absolute;
-  pointer-events: none;
-}
-
 .snowflake {
   position: absolute;
-  width: 10px;
-  height: 10px;
   background: ghostwhite;
-  opacity: 0.7;
+  opacity: 0.8;
   border-radius: 50%;
   animation: snowfall linear infinite;
   /* z-index: -1; */

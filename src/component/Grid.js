@@ -51,20 +51,14 @@ export default function Grid() {
   // Charger l'état du jeu une seule fois au montage
   useEffect(() => {
     update();
-  }, []);
+  }, [update]);
 
   // Générer la grille de cellules
   const cells = Array.from({ length: SIZE * SIZE }, (_, index) => {
     const x = Math.floor(index / SIZE);
     const y = index % SIZE;
     return (
-      <Cell
-        key={index}
-        types={types}
-        x={x}
-        y={y}
-        update={update}
-      />
+      <Cell key={index} types={types} x={x} y={y} update={update} />
     );
   });
 

@@ -121,16 +121,16 @@ export async function checkMove(dir) {
     throw new Error(`Invalid direction: ${dir}`);
   }
 
-  const relation = directions[dir];
+  const direction = directions[dir];
 
   const queryString = `
     SELECT ?newCell ?snowman ?nextCell ?nextSnowman
     WHERE {
       ?player a :CellPlayer .
-      ?player :${relation} ?newCell .
+      ?player :${direction} ?newCell .
       OPTIONAL { ?newCell :hasSnowman ?snowman . }
       OPTIONAL { 
-        ?newCell :${relation} ?nextCell .
+        ?newCell :${direction} ?nextCell .
         OPTIONAL { ?nextCell :hasSnowman ?nextSnowman . }
       }
     }

@@ -17,9 +17,9 @@ export default function Snowflakes() {
       setTimeout(() => snowflake.remove(), 5000);
     };
 
-    const interval = setInterval(createSnowflake, 150);
+    const interval = setInterval(createSnowflake, 200);
     return () => clearInterval(interval); 
   }, []);
 
-  return <div className="snowflakes"></div>;
+  return <></>;
 }
